@@ -1,6 +1,6 @@
-# 团队层面汇总模板
+# Team Aggregation Template
 
-基于多位工程师的个人分析结果，输出团队级别的效能洞察和培训规划。
+Aggregate individual engineer analyses into team-level effectiveness insights and training plans.
 
 ---
 
@@ -9,70 +9,70 @@
 ```
 @evaluation-framework
 
-请基于以下多位工程师的分析结果，输出团队层面的汇总报告。
+Please produce a team-level summary report based on the following individual engineer analyses.
 
-### 团队信息
+### Team Information
 
-- **团队名称**: [团队名]
-- **团队规模**: [人数]
-- **分析时段**: [起始日期] ~ [结束日期]
-- **分析覆盖**: [已分析 X 人，共 Y 个 session]
+- **Team Name**: [Team name]
+- **Team Size**: [Number of members]
+- **Analysis Period**: [Start date] – [End date]
+- **Coverage**: [X engineers analyzed, Y total sessions]
 
-### 个人分析摘要
+### Individual Analysis Summaries
 
-#### 工程师 1: [姓名]
-- 角色: [职级]
-- 分析 session 数: [N]
-- Phase 覆盖: [哪些 Phase 表现强/弱]
-- Tier 分布: [Tier 1: X% / Tier 2: Y% / Tier 3: Z%]
-- 核心优势: [简述]
-- 核心短板: [简述]
-- AI-Native 成熟度: [AI-assisted / 过渡中 / AI-native]
+#### Engineer 1: [Name]
+- Role: [Title]
+- Sessions analyzed: [N]
+- Phase coverage: [Which Phases are strong / weak]
+- Tier distribution: [Tier 1: X% / Tier 2: Y% / Tier 3: Z%]
+- Core strengths: [Brief summary]
+- Core gaps: [Brief summary]
+- AI-Native maturity: [AI-assisted / Transitioning / AI-native]
 
-#### 工程师 2: [姓名]
+#### Engineer 2: [Name]
 ...
 
-（添加所有已分析的工程师）
+(Add all analyzed engineers)
 
-### 分析要求
+### Analysis Requirements
 
-请输出团队汇总报告：
+Please produce a team summary report:
 
-1. **团队 AI-Native 成熟度概览**
-   - 团队成员在 AI-assisted ↔ AI-native 光谱上的分布
-   - 整体成熟度水平评估
+1. **Team AI-Native Maturity Overview**
+   - Distribution of team members on the AI-assisted ↔ AI-native spectrum
+   - Overall team maturity level assessment
 
-2. **Phase 级别的团队模式**
-   - 每个 Phase 在团队中的整体覆盖情况
-   - 团队共性强项（多数人都做得好的 Phase）
-   - 团队共性短板（多数人都薄弱的 Phase）
+2. **Phase-Level Team Patterns**
+   - Overall coverage of each Phase across the team
+   - Team-wide strengths (Phases where most members perform well)
+   - Team-wide gaps (Phases where most members are weak)
 
-3. **Phase 3 Tier 团队分布**
-   - 团队整体的 Tier 1/2/3 行为分布
-   - 高效工程师 vs. 待提升工程师的 Tier 分布对比
-   - 团队是否普遍停留在某个 Tier
+3. **Phase 3 Tier Team Distribution**
+   - Team-wide Tier 1/2/3 behavior distribution
+   - Tier distribution comparison: high-performing vs. developing engineers
+   - Whether the team is generally stuck at a particular Tier
 
-4. **培训优先级矩阵**
-   - 按影响范围（多少人受益）× 改进潜力（gap 大小）排列
-   - Top 3 优先培训主题
-   - 每个主题的具体培训内容建议
+4. **Training Priority Matrix**
+   - Ranked by impact scope (how many benefit) × improvement potential (gap size)
+   - Top 3 priority training topics
+   - Specific training content recommendations for each topic
 
-5. **最佳实践案例**
-   - 团队中可作为范例的优秀行为（附工程师和 session 引用）
-   - 建议如何在团队内推广这些实践
+5. **Best Practice Examples**
+   - Outstanding behaviors from the team worth showcasing (with engineer and session references)
+   - Recommendations for promoting these practices team-wide
 
-6. **行动计划建议**
-   - 短期（1-2 周）: 可立即实施的改进
-   - 中期（1-2 月）: 培训和工具改进
-   - 长期（1 季度）: 文化和流程层面的变化
-   - 追踪指标：如何衡量改进效果
+6. **Action Plan**
+   - Short-term (1–2 weeks): Quick wins that can be implemented immediately
+   - Medium-term (1–2 months): Training and tooling improvements
+   - Long-term (1 quarter): Culture and process changes
+   - Tracking metrics: How to measure improvement
 ```
 
 ---
 
-## 使用说明
+## Instructions
 
-1. 先用 `per-transcript.md` 和 `cross-session.md` 完成个人级别分析
-2. 将每位工程师的分析结论摘要填入上方模板
-3. 提交给 Cursor Agent 进行团队级汇总
-4. 团队汇总适合用于管理层汇报和培训规划
+1. Complete individual-level analyses first using `per-transcript.md` and `cross-session.md`
+2. Summarize each engineer's analysis results into the template above
+3. Submit to Cursor Agent for team-level aggregation
+4. The team summary is suitable for management reporting and training planning

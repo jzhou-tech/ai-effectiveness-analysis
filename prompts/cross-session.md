@@ -1,6 +1,6 @@
-# 多会话聚合分析模板
+# Cross-Session Analysis Template
 
-对同一工程师的多个 transcript 进行纵向对比，识别跨会话的行为模式与趋势。
+Perform a longitudinal comparison across multiple transcripts from the same engineer to identify behavioral patterns and trends.
 
 ---
 
@@ -9,72 +9,72 @@
 ```
 @evaluation-framework
 
-请对以下同一工程师的多个 agent transcript 进行跨会话聚合分析。
+Please perform a cross-session aggregation analysis on the following agent transcripts from the same engineer.
 
-### 工程师信息
+### Engineer Information
 
-- **姓名**: [姓名]
-- **角色**: [职级/角色]
-- **分析时段**: [起始日期] ~ [结束日期]
+- **Name**: [Name]
+- **Role**: [Title / Role]
+- **Analysis Period**: [Start date] – [End date]
 
-### Transcript 列表
+### Transcript List
 
-#### Session 1: [任务简述]
-- 日期: [YYYY-MM-DD]
-- 类型: [新功能 / Bug修复 / 重构 / 其他]
+#### Session 1: [Task summary]
+- Date: [YYYY-MM-DD]
+- Type: [New feature / Bug fix / Refactor / Other]
 
-[粘贴 transcript 或使用 @file 引用]
+[Paste transcript or use @file to reference]
 
-#### Session 2: [任务简述]
-- 日期: [YYYY-MM-DD]
-- 类型: [新功能 / Bug修复 / 重构 / 其他]
+#### Session 2: [Task summary]
+- Date: [YYYY-MM-DD]
+- Type: [New feature / Bug fix / Refactor / Other]
 
-[粘贴 transcript 或使用 @file 引用]
+[Paste transcript or use @file to reference]
 
 #### Session N: ...
 
-（可添加更多 session）
+(Add more sessions as needed)
 
-### 分析要求
+### Analysis Requirements
 
-请输出跨会话聚合报告：
+Please produce a cross-session aggregation report:
 
-1. **工程师画像** — 基于所有 session 的整体行为特征概述
+1. **Engineer Profile** — Overall behavioral characteristics based on all sessions
 
-2. **Phase 覆盖一致性**
-   - 哪些 Phase 在所有 session 中都有体现？
-   - 哪些 Phase 被一贯跳过？
-   - 是否有随时间改善或退步的趋势？
+2. **Phase Coverage Consistency**
+   - Which Phases are consistently present across all sessions?
+   - Which Phases are consistently skipped?
+   - Is there a trend of improvement or regression over time?
 
-3. **Phase 3 Tier 分布趋势**
-   - 各 session 的 Tier 1/2/3 比例
-   - 整体分布模式：以哪个 Tier 为主？
-   - 是否有从 Tier 3 向 Tier 1 迁移的趋势？
+3. **Phase 3 Tier Distribution Trend**
+   - Tier 1/2/3 ratios for each session
+   - Overall distribution pattern: which Tier dominates?
+   - Is there a migration trend from Tier 3 toward Tier 1?
 
-4. **稳定模式 vs. 偶发行为**
-   - 在多个 session 中反复出现的强项
-   - 在多个 session 中反复出现的短板
-   - 仅在特定 session 中出现的异常（正面或负面）
+4. **Stable Patterns vs. Occasional Behaviors**
+   - Strengths that recur across multiple sessions
+   - Gaps that recur across multiple sessions
+   - Anomalies (positive or negative) that appear only in specific sessions
 
-5. **任务类型影响**
-   - 不同类型任务（功能开发 vs. Bug修复 vs. 重构）中的行为差异
-   - 任务复杂度如何影响该工程师的 AI-native 行为质量
+5. **Task Type Impact**
+   - Behavioral differences across task types (feature development vs. bug fix vs. refactor)
+   - How task complexity affects the engineer's AI-native behavior quality
 
-6. **AI-Native 成熟度轨迹**
-   - 在分析时段内的成熟度变化趋势
-   - 当前在 AI-assisted ↔ AI-native 光谱上的位置
-   - 最有价值的下一步改进方向
+6. **AI-Native Maturity Trajectory**
+   - Maturity trend over the analysis period
+   - Current position on the AI-assisted ↔ AI-native spectrum
+   - Most valuable next improvement direction
 
-7. **个性化培训建议**
-   - 基于稳定模式（非偶发行为）给出 2-3 条优先培训建议
-   - 每条建议附具体 session 证据
+7. **Personalized Training Recommendations**
+   - 2–3 priority training suggestions based on stable patterns (not one-off behaviors)
+   - Each recommendation backed by specific session evidence
 ```
 
 ---
 
-## 使用说明
+## Instructions
 
-1. 收集同一工程师在一段时期内的多个 transcript（建议 3-5 个，跨不同任务类型）
-2. 按时间顺序排列
-3. 填入上方模板并提交给 Cursor Agent
-4. 聚合分析能发现单次分析看不到的长期模式
+1. Collect multiple transcripts from the same engineer over a period of time (3–5 recommended, across different task types)
+2. Arrange them in chronological order
+3. Fill in the template above and submit to Cursor Agent
+4. Cross-session analysis reveals long-term patterns invisible in single-transcript reviews

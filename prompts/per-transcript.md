@@ -1,6 +1,6 @@
-# 单次 Transcript 分析模板
+# Single Transcript Analysis Template
 
-在 Cursor Agent 对话中使用此模板。确保已引用 `@evaluation-framework` rule。
+Use this template in a Cursor Agent conversation. Make sure to reference the `@evaluation-framework` rule.
 
 ---
 
@@ -9,41 +9,41 @@
 ```
 @evaluation-framework
 
-请按 AI-Native Engineering Effectiveness Evaluation Framework 分析以下 agent transcript。
+Please analyze the following agent transcript per the AI-Native Engineering Effectiveness Evaluation Framework.
 
-### 基本信息
+### Basic Information
 
-- **工程师**: [姓名]
-- **项目/任务**: [项目名称和具体任务描述]
-- **日期**: [YYYY-MM-DD]
-- **会话类型**: [新功能开发 / Bug修复 / 重构 / 技术调研 / 其他]
+- **Engineer**: [Name]
+- **Project / Task**: [Project name and specific task description]
+- **Date**: [YYYY-MM-DD]
+- **Session Type**: [New feature / Bug fix / Refactor / Technical investigation / Other]
 
 ### Transcript
 
-[在此粘贴完整的 agent transcript，或使用 @file 引用导出的 Markdown 文件]
+[Paste the full agent transcript here, or use @file to reference an exported Markdown file]
 
-### 分析要求
+### Analysis Requirements
 
-请按以下结构输出评估报告：
+Please produce an evaluation report with the following structure:
 
-1. **Session Overview** — 概述会话内容、类型和复杂度
-2. **Phase-by-Phase Findings** — 逐阶段分析，引用 transcript 原文作为证据
-3. **Phase 3 Tier Distribution** — 给出 Tier 1/2/3 的大致比例和典型示例
-4. **Pattern Summary** — 归纳核心优势和短板
-5. **AI-Native Maturity Assessment** — 判断该工程师在 AI-assisted ↔ AI-native 光谱上的位置
+1. **Session Overview** — Summarize the session content, type, and complexity
+2. **Phase-by-Phase Findings** — Analyze each phase, citing transcript excerpts as evidence
+3. **Phase 3 Tier Distribution** — Provide approximate Tier 1/2/3 ratios with representative examples
+4. **Pattern Summary** — Identify core strengths and gaps
+5. **AI-Native Maturity Assessment** — Place the engineer on the AI-assisted ↔ AI-native spectrum
 
-对于每个发现，请：
-- 引用 transcript 中的具体对话片段作为证据
-- 区分"强项（值得推广）"和"短板（需要培训）"
-- 给出具体、可操作的改进建议
+For each finding:
+- Cite specific dialogue excerpts from the transcript as evidence
+- Distinguish between "strengths (worth promoting)" and "gaps (training needed)"
+- Provide concrete, actionable improvement recommendations
 ```
 
 ---
 
-## 使用说明
+## Instructions
 
-1. 用 `cursor-chat-export` 中的 `export_new.py export` 导出目标 transcript
-2. 在 Cursor 中打开本项目
-3. 新建 Agent 对话，复制上方 Prompt 并填入信息
-4. 将导出的 Markdown 文件通过 `@file` 引用，或直接粘贴内容
-5. AI 将按框架输出结构化评估报告
+1. Export the target transcript using `export_new.py export` from the [cursor-chat-export](https://github.com/jzhou-tech/cursor-chat-export) project
+2. Open this project in Cursor
+3. Start a new Agent conversation, copy the prompt above, and fill in the details
+4. Reference the exported Markdown file via `@file`, or paste the content directly
+5. The AI will produce a structured evaluation report following the framework
