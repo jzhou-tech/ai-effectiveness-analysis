@@ -1,77 +1,79 @@
 # AI-Native Engineering Effectiveness Analysis
 
-基于 **AI-Native Engineering Effectiveness Evaluation Framework** 分析工程师与 AI Agent 的交互对话，识别效能模式、短板与培训方向。
+Analyze engineer–AI Agent interactions using the **AI-Native Engineering Effectiveness Evaluation Framework**. Identify effectiveness patterns, skill gaps, and training priorities.
 
-## 工作流
+## Workflow
 
 ```
-cursor-chat-export (姐妹项目)          本项目
-┌──────────────────────┐        ┌───────────────────────────┐
-│  export_new.py       │        │  Cursor Agent +           │
-│  导出 transcript     │──────→ │  evaluation-framework     │
-│  为 Markdown 文件    │        │  按框架分析 transcript    │
-└──────────────────────┘        └───────────────────────────┘
+cursor-chat-export (sister project)        this project
+┌──────────────────────┐            ┌───────────────────────────┐
+│  export_new.py       │            │  Cursor Agent +           │
+│  Export transcripts   │──────────→│  evaluation-framework     │
+│  to Markdown files   │            │  Analyze per framework    │
+└──────────────────────┘            └───────────────────────────┘
 ```
 
-1. 在 `cursor-chat-export` 项目中运行 `python export_new.py export` 导出 agent transcript
-2. 将导出的 Markdown 文件放入本项目（或直接在 Cursor 中引用）
-3. 在 Cursor 中打开本项目，启动 Agent 对话，引用 `evaluation-framework` rule
-4. 使用 `prompts/` 目录下的模板进行分析
+1. Export agent transcripts via `python export_new.py export` in the [cursor-chat-export](https://github.com/jzhou-tech/cursor-chat-export) project
+2. Place the exported Markdown files in this project (or reference them directly in Cursor)
+3. Open this project in Cursor, start an Agent conversation, and reference the `evaluation-framework` rule
+4. Use the prompt templates under `prompts/` to run the analysis
 
-## 项目结构
+## Project Structure
 
 ```
 ai-effectiveness-analysis/
 ├── .cursor/rules/
-│   └── evaluation-framework.mdc   # Cursor Rule: 完整评估框架 + AI 角色定义
+│   └── evaluation-framework.mdc   # Cursor Rule: full evaluation framework + AI role definition
 ├── prompts/
-│   ├── per-transcript.md          # 单次 transcript 分析模板
-│   ├── cross-session.md           # 多会话纵向对比模板
-│   └── team-aggregation.md        # 团队层面汇总模板
+│   ├── per-transcript.md          # Single transcript analysis template
+│   ├── cross-session.md           # Multi-session longitudinal comparison template
+│   └── team-aggregation.md        # Team-level aggregation template
+├── reports/                       # (git-ignored) Generated evaluation reports
 └── README.md
 ```
 
-## 评估框架概要
+## Framework Overview
 
-框架围绕 AI-native 开发的四个阶段评估工程师行为：
+The framework evaluates engineer behavior across four phases of AI-native development:
 
-| Phase | 名称 | 核心关注 |
-|-------|------|----------|
-| 1 | Requirement Clarification & Spec Definition | 需求澄清与规格定义 |
-| 2 | Planning & Task Decomposition | 计划制定与任务拆解 |
-| 3 | Orchestration, Verification & Critical Engagement | 编排、验证与批判性参与 |
-| 4 | Continuous Alignment, Adaptation & Knowledge Capture | 持续对齐、自适应调整与知识沉淀 |
+| Phase | Name | Focus |
+|-------|------|-------|
+| 1 | Requirement Clarification & Spec Definition | Upfront spec quality, constraint surfacing, ambiguity resolution |
+| 2 | Planning & Task Decomposition | Task breakdown, dependency ordering, risk identification |
+| 3 | Orchestration, Verification & Critical Engagement | Execution steering, output validation, critical questioning |
+| 4 | Continuous Alignment, Adaptation & Knowledge Capture | Mid-course correction, knowledge persistence, retrospective capture |
 
-Phase 3 进一步区分三层行为：
-- **Tier 1 — Proactive Interrogation**: 主动提问，用领域知识发现 AI 未暴露的问题（最高价值）
-- **Tier 2 — Directed Quality Assurance**: 指导 AI 写测试、review 代码、讨论取舍
-- **Tier 3 — Reactive Correction**: 被动纠错，仅在 AI 产出明显错误时介入（基线）
+Phase 3 further distinguishes three tiers of engagement:
 
-## 使用方式
+- **Tier 1 — Proactive Interrogation**: Engineer proactively raises edge cases, integration risks, or architectural concerns that the AI has not surfaced (highest value)
+- **Tier 2 — Directed Quality Assurance**: Engineer directs the AI to write tests, review code, or discuss trade-offs
+- **Tier 3 — Reactive Correction**: Engineer corrects only when the AI produces obvious errors (baseline)
 
-### 分析单次对话
+## Usage
 
-在 Cursor Agent 中：
+### Analyze a Single Conversation
+
+In a Cursor Agent chat:
 
 ```
 @evaluation-framework
 
-请按框架分析以下 transcript：
-工程师：张三
-项目：用户认证模块重构
-日期：2026-03-25
+Please analyze the following transcript per the framework:
+Engineer: Jane Doe
+Project: User authentication refactor
+Date: 2026-03-25
 
-[粘贴或引用 transcript 内容]
+[paste or reference transcript content]
 ```
 
-### 跨会话对比
+### Cross-Session Comparison
 
-参考 `prompts/cross-session.md` 模板，一次性提供同一工程师的多个 transcript。
+Use the `prompts/cross-session.md` template. Provide multiple transcripts from the same engineer to track growth over time.
 
-### 团队汇总
+### Team Aggregation
 
-参考 `prompts/team-aggregation.md` 模板，基于多人的分析结果汇总团队共性。
+Use the `prompts/team-aggregation.md` template. Aggregate individual analyses to identify team-wide patterns and training needs.
 
-## 相关项目
+## Related Projects
 
-- [cursor-chat-export](../cursor-chat-export/) — Cursor 对话导出工具，提供数据采集能力
+- [cursor-chat-export](https://github.com/jzhou-tech/cursor-chat-export) — CLI tools for exporting Cursor chat history to Markdown
