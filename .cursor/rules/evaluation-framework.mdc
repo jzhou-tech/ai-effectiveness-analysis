@@ -1,5 +1,5 @@
 ---
-description: AI-Native 工程效能评估框架 — 分析工程师与 AI Agent 的交互 transcript，识别效能模式与改进方向
+description: AI-Native Engineering Effectiveness Evaluation Framework — Analyze engineer–AI agent transcripts to surface effectiveness patterns and training priorities
 alwaysApply: false
 ---
 
@@ -37,76 +37,87 @@ The engineer uses AI to sharpen vague requirements into precise, agent-executabl
 - Jumping directly to "build this" with no problem framing or spec
 - No discussion of who the work is for, what problem it solves, or what success looks like
 - Vague or incomplete specs that lead to agents building the wrong thing, requiring costly rework
+- Defining the spec entirely alone without leveraging AI to stress-test it
+- Prescribing implementation steps in the spec rather than defining outcomes and letting AI propose the approach
 
 **Training implication:** Engineers exhibiting these gaps may benefit from training on spec-driven development — how to produce specifications precise enough for agent execution, not just human understanding.
 
 ### Phase 2: Planning & Task Decomposition
 
-The engineer co-creates a structured plan with AI, decomposes work into agent-executable tasks, and validates the plan against requirements. In AI-native development, the plan is not "what I'm going to code" — it's the agent's operating instructions. Research shows that time spent on co-planning is the single biggest factor in preventing wasted iterations.
+The plan serves two purposes. First, it validates the design — the approach, architecture, and trade-offs. Second, it acts as a cognitive scaffold for the AI during execution. Agents have finite context and no persistent memory within a session. On large-scope work, without a plan to refer back to, the AI drifts — it forgets constraints, contradicts earlier decisions, and loses coherence across files. The plan is the AI's working memory.
+
+Whether to demand a plan depends on two dimensions:
+- **Design uncertainty:** Is the approach novel or uncertain? → Plan needed to validate the design before execution.
+- **Execution scope:** Is the scope large enough that the AI may lose coherence mid-task? → Plan needed as a scaffold, even if the engineer knows exactly what to build.
+
+Small, well-understood tasks with good test coverage can skip detailed planning. Large or novel tasks need it — not as overhead, but as the mechanism that keeps AI execution coherent.
 
 **Expected behaviors:**
 - Engineer asks AI to propose an approach, architecture, or step-by-step plan
-- Engineer decomposes the work into small, verifiable tasks that an agent can execute incrementally — not one large "build everything" request
 - Engineer reviews and challenges the plan — refines, pushes back, or asks for alternatives
-- Engineer explicitly cross-checks: "does this plan cover all the requirements?"
-- Engineer asks AI to identify risks, unknowns, or dependencies in the plan
+- Engineer explicitly cross-checks the plan against requirements
+- Engineer asks AI to identify risks, unknowns, or dependencies
+- Engineer matches the level of planning to the task — detailed plans for large scope or novel design, lightweight or no plans for small, well-understood tasks
 - Engineer establishes guardrails and constraints for agent execution (e.g., which patterns to follow, which areas are off-limits)
 
 **Common gaps:**
-- No planning step — engineer moves directly from requirements to "build it"
-- Asking AI to build an entire feature in one shot rather than decomposing into incremental, verifiable steps
-- Accepting AI's first suggested approach without review or challenge
+- No planning step on large-scope or novel tasks — moves directly from requirements to "build it"
+- Accepts AI's first suggested approach without review or challenge, especially for large scope projects
+- Skipping a plan on a large task because the engineer knows the answer — the plan isn't for the engineer, it's for the AI's execution coherence
+- Demanding detailed plans on small, familiar tasks where direct execution would be more efficient
 - No guardrails or constraints set for agent execution
 
 **Training implication:** Engineers exhibiting these gaps may benefit from training on AI-native task decomposition — how to break work into agent-sized chunks with clear acceptance criteria, and how to set guardrails for agent execution.
 
 ### Phase 3: Orchestration, Verification & Critical Engagement
 
-The engineer directs AI to execute each step of the plan, then verifies, steers, and iterates. In AI-native development, the engineer is not writing code and asking AI to help — the engineer is orchestrating AI execution and serving as the judgment and verification layer.
+The engineer orchestrates AI as the primary executor and focuses human verification where it has the highest return. AI should self-verify everything it can — builds, tests, linting, rendering, self-review — and the engineer verifies what AI structurally cannot: business correctness, architectural fit, and integration safety. The less human verification needed at execution time, the better the spec was at design time.
 
 This phase distinguishes three tiers of behavior, ordered from most valuable to least.
 
 #### Tier 1 — Proactive Interrogation (highest value)
 
-The engineer asks targeted questions to surface issues the AI didn't raise. This is the engineer acting as the verification layer that agents lack — bringing domain expertise, systems thinking, and production awareness.
+The engineer verifies at the boundaries where AI judgment is insufficient — where code meets business logic, other systems, and users. This requires domain expertise, systems thinking, and production awareness that no spec can fully encode.
 
-Five categories of proactive interrogation:
+Look for questions in these categories:
+- Business logic correctness that tests alone cannot validate
+- Integration impacts and side effects across system boundaries
+- Non-functional concerns (performance, security, reliability)
+- Architectural fit — does this belong here, does it scale, does it match the system's conventions
+- Edge cases that the AI's self-verification cannot cover
 
-1. **Correctness under edge/boundary conditions** — "What happens if this is called concurrently?" "What if the list is empty or has 10M items?"
-2. **Integration impacts and side effects** — "How does this affect the caching layer?" "Will this migration lock the table?"
-3. **Non-functional concerns** — "What's the time complexity at our scale?" "Is this secure against injection?"
-4. **Business logic and regulatory constraints** — "Our pricing has a special case for enterprise tiers — is that handled?" "Regulation X requires encryption here."
-5. **Challenging architectural/design assumptions** — "Why a REST endpoint instead of a message consumer?" "Why optimistic locking given our write patterns?"
+#### Tier 2 — Directed Verification Design (expected)
 
-An engineer operating at this tier is fulfilling the core AI-native role: providing the judgment and verification that agents cannot.
-
-#### Tier 2 — Directed Quality Assurance (expected)
-
+Human ensures AI self-verification is thorough.
 - Directs AI to write tests, including edge cases and failure scenarios
-- Reviews generated code before directing AI to proceed to the next step
-- Asks AI to reason about trade-offs in its own implementation
-- Verifies each incremental step before moving to the next
+- Instructs AI to self-review its implementation before proceeding
+- Asks AI to reason about trade-offs in its approach
+- Defines acceptance criteria that let AI verify its own output
+- Demands AI run tests and confirm results as part of the task
 
 #### Tier 3 — Reactive Correction (baseline)
 
-- Corrects AI after it produces visibly incorrect output
-- Quality of correction feedback: specific and actionable vs. vague
+- Provides specific, actionable feedback (e.g., "table X doesn't have column Y, use Z instead" rather than "that's wrong, try again")
 - Resolves errors efficiently (fewer correction turns = better)
 
 **Common gaps:**
 - Operating almost exclusively at Tier 3 — only engaging when something visibly breaks
 - No test requests or edge case discussion
-- Accepting generated code without review or verification
-- Vague correction feedback leading to wasted iterations (e.g., "that's wrong, try again" instead of "table X doesn't have column Y, use Z instead")
-- Asking AI to build large chunks without reviewing intermediate output — treating AI as a black box rather than orchestrating it step-by-step
+- Not requiring AI to self-verify (run tests, self-review) before handoff
+- Spending human attention on verification the AI could have done (builds, linting, basic rendering) instead of focusing on business/domain judgment
+- Vague correction feedback leading to wasted iterations
+- No acceptance criteria defined, forcing the engineer into manual line-by-line review because AI has nothing to verify against
 
-**Key principle:** An engineer who rarely needs Tier 3 because they proactively caught issues at Tier 1 is far more effective than one who is skilled at Tier 3 corrections. In AI-native development, verification is proactive, not reactive.
+**Key principle:** The most effective engineer writes specs and acceptance criteria precise enough that AI self-verifies most of the work, then focuses human attention exclusively on business, domain, and integration judgments that AI cannot make. Heavy human verification at execution time signals weak specs, not diligent engineering.
 
-**Training implication:** Engineers concentrated at Tier 3 may benefit from training on verification-first engineering — how to interrogate AI output using domain expertise rather than waiting for failure signals.
+**Training implications:**
+- Engineers concentrated at Tier 3 may benefit from training on **critical review techniques and domain-driven questioning** — how to interrogate AI output using their existing expertise rather than waiting for failures.
+- Engineers with weak Tier 2 habits may need reinforcement on **testing discipline and code review practices**.
+- Engineers skipping incremental verification may need coaching on **step-by-step orchestration** — directing AI through small, verifiable increments rather than large, unreviewed chunks.
 
 ### Phase 4: Continuous Alignment, Adaptation & Knowledge Capture
 
-The engineer periodically checks progress against goals, adjusts plans with documented reasoning, and captures knowledge in persistent artifacts. In AI-native development, knowledge capture has an additional dimension: creating artifacts that can orient future agent sessions, not just human readers.
+The engineer periodically checks progress against goals, adjusts plans with documented reasoning, and captures knowledge for future reference. In AI-native development, knowledge capture has an additional critical function: it becomes **AI memory that survives session boundaries.** Context windows fill up, sessions end, and agents lose context. Documented decisions, specs, and ADRs ensure the next agent session can pick up where the last one left off.
 
 **Expected behaviors:**
 - Periodic checkpoint moments: "let's review where we are relative to the original goal"
@@ -116,14 +127,24 @@ The engineer periodically checks progress against goals, adjusts plans with docu
 - Asks AI to document key decisions, trade-offs, or architectural choices (e.g., ADRs, PR descriptions, inline documentation)
 - Session ends with a summary or handoff artifact that would help another engineer — or another AI session — understand what was done and why
 - Knowledge is captured in persistent, referenceable forms (not just chat history) that can orient future agent sessions
+- Uses the right artifact type for the knowledge — working docs (`docs/`) for investigation results and gap analyses, plans for phased execution specs, rules (`.cursor/rules/`) for permanent conventions, skills (`.cursor/skills/`) for reusable how-to guides, `AGENTS.md` for commands and critical gotchas
+- Keeps persistent docs in sync after implementation changes
+- Documents incomplete work explicitly rather than discarding it — future sessions can pick it up
+- Creates reusable rules or skills when the same correction has been given to the AI repeatedly
 
 **Common gaps:**
 - Never revisits original goals after starting execution
 - Scope changes happen silently with no documented reasoning
 - No documentation or knowledge capture at the end
 - Knowledge lives only in the chat session — nothing persists for future sessions or team members
+- Persistent docs left stale after implementation — drift between docs and code
+- Repeated corrections to the AI on the same pattern that should have been captured as a rule or skill
+- All knowledge captured in one form (e.g., only chat summaries) when different artifact types would be more durable or reusable
 
-**Training implication:** Engineers exhibiting these gaps may benefit from training on persistent knowledge management in AI-native workflows — how to create artifacts (specs, ADRs, decision logs) that serve both human and AI consumers.
+**Training implications:**
+- Engineers exhibiting these gaps may benefit from training on **persistent knowledge management in AI-native workflows** — how to create artifacts (specs, ADRs, decision logs) that serve as both human documentation and agent context for future sessions
+- Engineers exhibiting doc drift may need training on treating doc sync as a deliberate post-implementation step — not optional cleanup
+- Engineers repeatedly correcting the AI on the same conventions may benefit from learning to create rules and skills that encode those conventions permanently, compounding knowledge across the team
 
 ## Applying Findings
 
@@ -136,9 +157,9 @@ The purpose of this framework is not to rate individuals but to surface actionab
 
 **At the team level:**
 - Aggregate gaps across engineers to identify systemic training needs
-- If most engineers skip Phase 1, the team needs spec-driven development training
+- If most engineers skip Phase 2, the team needs planning discipline training — not more AI tooling
+- If most engineers operate at Tier 3 in Phase 3, the team needs critical thinking training — not more prompt engineering tips
 - If most engineers treat AI as a code generator rather than an orchestrated executor, the team needs AI-native workflow training — the shift from author to architect/orchestrator
-- If most engineers operate at Tier 3 in Phase 3, the team needs verification-first engineering training
 
 **Over time:**
 - Re-analyze transcripts after training to measure whether gap patterns shift

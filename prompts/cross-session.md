@@ -1,6 +1,6 @@
-# Cross-Session Analysis Template
+# Cross-Session Longitudinal Analysis
 
-Perform a longitudinal comparison across multiple transcripts from the same engineer to identify behavioral patterns and trends.
+Compare multiple transcripts from the same engineer over time. Individual sessions may only show some phases; patterns across multiple sessions give a more reliable picture of an engineer's habits (see framework §4 Scope & Applicability — "Accumulation").
 
 ---
 
@@ -9,72 +9,71 @@ Perform a longitudinal comparison across multiple transcripts from the same engi
 ```
 @evaluation-framework
 
-Please perform a cross-session aggregation analysis on the following agent transcripts from the same engineer.
+Perform a cross-session longitudinal analysis on the following agent transcripts from the same engineer.
 
-### Engineer Information
+### Engineer
 
 - **Name**: [Name]
-- **Role**: [Title / Role]
-- **Analysis Period**: [Start date] – [End date]
+- **Role**: [Title / Level]
+- **Analysis period**: [Start date] – [End date]
 
-### Transcript List
+### Sessions
 
 #### Session 1: [Task summary]
 - Date: [YYYY-MM-DD]
-- Type: [New feature / Bug fix / Refactor / Other]
+- Type: [New feature / Bug fix / Refactor / Investigation / Other]
 
-[Paste transcript or use @file to reference]
+[Paste transcript or @file reference]
 
 #### Session 2: [Task summary]
 - Date: [YYYY-MM-DD]
-- Type: [New feature / Bug fix / Refactor / Other]
+- Type: [New feature / Bug fix / Refactor / Investigation / Other]
 
-[Paste transcript or use @file to reference]
+[Paste transcript or @file reference]
 
-#### Session N: ...
+(Add more sessions — 3–5 across different task types recommended)
 
-(Add more sessions as needed)
+### Required output
 
-### Analysis Requirements
-
-Please produce a cross-session aggregation report:
-
-1. **Engineer Profile** — Overall behavioral characteristics based on all sessions
+1. **Engineer Profile**
+   Overall behavioral characteristics derived from the full session set.
 
 2. **Phase Coverage Consistency**
-   - Which Phases are consistently present across all sessions?
-   - Which Phases are consistently skipped?
-   - Is there a trend of improvement or regression over time?
+   - Which phases appear consistently? Which are consistently absent?
+   - Trend over time — improvement, regression, or stable?
+   - Weight phase importance relative to task complexity (per framework §4 Scope & Applicability — "Context matters").
 
 3. **Phase 3 Tier Distribution Trend**
-   - Tier 1/2/3 ratios for each session
-   - Overall distribution pattern: which Tier dominates?
-   - Is there a migration trend from Tier 3 toward Tier 1?
+   - Per-session Tier 1 / Tier 2 / Tier 3 breakdown
+   - Dominant tier across sessions
+   - Migration trend — is the engineer shifting from Reactive Correction toward Proactive Interrogation over time?
 
 4. **Stable Patterns vs. Occasional Behaviors**
-   - Strengths that recur across multiple sessions
-   - Gaps that recur across multiple sessions
-   - Anomalies (positive or negative) that appear only in specific sessions
+   - Strengths recurring across multiple sessions (reliable habits)
+   - Gaps recurring across multiple sessions (systemic weaknesses)
+   - One-off anomalies — positive or negative — tied to specific session context
 
 5. **Task Type Impact**
-   - Behavioral differences across task types (feature development vs. bug fix vs. refactor)
-   - How task complexity affects the engineer's AI-native behavior quality
+   - Behavioral differences by task type (feature dev vs. bug fix vs. refactor vs. investigation)
+   - How task complexity and novelty affect AI-native behavior quality
+   - Whether the engineer appropriately scales planning effort to task scope (per framework Phase 2 — design uncertainty × execution scope)
 
 6. **AI-Native Maturity Trajectory**
-   - Maturity trend over the analysis period
-   - Current position on the AI-assisted ↔ AI-native spectrum
+   - Position on the AI-assisted ↔ AI-native spectrum at start and end of the analysis period
+   - Rate and direction of change
    - Most valuable next improvement direction
 
 7. **Personalized Training Recommendations**
-   - 2–3 priority training suggestions based on stable patterns (not one-off behaviors)
-   - Each recommendation backed by specific session evidence
+   - 2–3 priority recommendations based on stable patterns, not one-off behaviors
+   - Each backed by specific session evidence
+   - Mapped to framework training implications (spec-driven development, planning discipline, critical review techniques, persistent knowledge management, etc.)
 ```
 
 ---
 
 ## Instructions
 
-1. Collect multiple transcripts from the same engineer over a period of time (3–5 recommended, across different task types)
-2. Arrange them in chronological order
-3. Fill in the template above and submit to Cursor Agent
-4. Cross-session analysis reveals long-term patterns invisible in single-transcript reviews
+1. Collect 3–5 transcripts from the same engineer, ideally spanning different task types and a meaningful time period
+2. Arrange chronologically
+3. Fill in the template and submit to Cursor Agent
+4. Cross-session analysis surfaces long-term habits invisible in any single transcript

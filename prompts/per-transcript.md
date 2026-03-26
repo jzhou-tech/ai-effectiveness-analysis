@@ -1,6 +1,6 @@
-# Single Transcript Analysis Template
+# Single Transcript Analysis
 
-Use this template in a Cursor Agent conversation. Make sure to reference the `@evaluation-framework` rule.
+Use this template in a Cursor Agent conversation. Reference the `@evaluation-framework` rule before submitting.
 
 ---
 
@@ -9,41 +9,57 @@ Use this template in a Cursor Agent conversation. Make sure to reference the `@e
 ```
 @evaluation-framework
 
-Please analyze the following agent transcript per the AI-Native Engineering Effectiveness Evaluation Framework.
+Analyze the following agent transcript against the AI-Native Engineering Effectiveness Evaluation Framework.
 
-### Basic Information
+### Session metadata
 
 - **Engineer**: [Name]
-- **Project / Task**: [Project name and specific task description]
+- **Project / Task**: [What was being built or investigated]
 - **Date**: [YYYY-MM-DD]
-- **Session Type**: [New feature / Bug fix / Refactor / Technical investigation / Other]
+- **Session type**: [New feature / Bug fix / Refactor / Investigation / Other]
 
 ### Transcript
 
-[Paste the full agent transcript here, or use @file to reference an exported Markdown file]
+[Paste the full agent transcript, or use @file to reference an exported Markdown file]
 
-### Analysis Requirements
+### Required output
 
-Please produce an evaluation report with the following structure:
+Produce a structured evaluation covering:
 
-1. **Session Overview** — Summarize the session content, type, and complexity
-2. **Phase-by-Phase Findings** — Analyze each phase, citing transcript excerpts as evidence
-3. **Phase 3 Tier Distribution** — Provide approximate Tier 1/2/3 ratios with representative examples
-4. **Pattern Summary** — Identify core strengths and gaps
-5. **AI-Native Maturity Assessment** — Place the engineer on the AI-assisted ↔ AI-native spectrum
+1. **Session Overview**
+   - Engineer, project, date, session type, complexity
+   - Brief summary of what was accomplished
 
-For each finding:
-- Cite specific dialogue excerpts from the transcript as evidence
-- Distinguish between "strengths (worth promoting)" and "gaps (training needed)"
-- Provide concrete, actionable improvement recommendations
+2. **Phase-by-Phase Findings**
+   For each of the four phases (Requirement Clarification & Spec Definition, Planning & Task Decomposition, Orchestration/Verification/Critical Engagement, Continuous Alignment/Adaptation/Knowledge Capture):
+   - Evidence observed — quote specific transcript excerpts
+   - Assessment: Strong / Adequate / Weak / Not Applicable
+   - Specific gaps identified, mapped to the framework's "Common gaps" list
+   - Training implications per phase
+   - Account for session scope — not every session requires all four phases
+
+3. **Phase 3 Tier Distribution**
+   - Approximate percentage: Tier 1 (Proactive Interrogation) / Tier 2 (Directed Verification Design) / Tier 3 (Reactive Correction)
+   - Representative examples from each observed tier
+   - Overall characterization — where does the engineer concentrate their verification effort?
+
+4. **Pattern Summary**
+   - Top strengths with evidence (behaviors worth promoting)
+   - Top gaps with evidence (behaviors needing training)
+   - Priority training recommendations, referencing specific framework training implications
+
+5. **AI-Native Maturity Assessment**
+   - Position on the AI-assisted ↔ AI-native spectrum
+   - Specific behaviors that indicate current position
+   - What "next level" looks like for this engineer
 ```
 
 ---
 
 ## Instructions
 
-1. Export the target transcript using `export_new.py export` from the [cursor-chat-export](https://github.com/jzhou-tech/cursor-chat-export) project
+1. Export the target transcript using `export_new.py export` from [cursor-chat-export](https://github.com/jzhou-tech/cursor-chat-export)
 2. Open this project in Cursor
-3. Start a new Agent conversation, copy the prompt above, and fill in the details
-4. Reference the exported Markdown file via `@file`, or paste the content directly
-5. The AI will produce a structured evaluation report following the framework
+3. Start a new Agent conversation, copy the prompt above, and fill in the metadata
+4. Reference the exported Markdown via `@file`, or paste content directly
+5. The AI will produce a structured evaluation following the framework's output format
